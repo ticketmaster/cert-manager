@@ -1,0 +1,35 @@
+commonLabels:
+  app.kubernetes.io/name: cert-manager
+
+configurations:
+- config/commonannotations.yaml
+- config/commonlabels.yaml
+- config/nameprefix.yaml
+- config/namereference.yaml
+- config/namespace.yaml
+- config/varreference.yaml
+
+namespace: cert-manager
+
+resources:
+- apiservice.yaml
+- ca-sync-rbac.yaml
+- certificates.yaml
+- configmap.yaml
+- cronjob.yaml
+- deployment.yaml
+- issuers.yaml
+- job.yaml
+- rbac.yaml
+# - rolebinding.yaml
+- service.yaml
+- validatingwebhookconfiguration.yaml
+
+vars:
+- name: WEBHOOK_NAMESPACE
+  objref:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cert-manager-webhook
+  fieldref:
+    fieldpath: metadata.namespace

@@ -1,0 +1,35 @@
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  labels:
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/name: cert-manager
+  name: cert-manager-webhook-ca
+  namespace: cert-manager
+spec:
+  secretName: cert-manager-webhook-ca
+  duration: 43800h
+  issuerRef:
+    name: cert-manager-webhook-selfsign
+  commonName: ca.webhook.cert-manager
+  isCA: true
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  labels:
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/name: cert-manager
+  name: cert-manager-webhook-tls
+  namespace: cert-manager
+spec:
+  secretName: cert-manager-webhook-tls
+  duration: 8760h
+  issuerRef:
+    name: cert-manager-webhook-ca
+  dnsNames:
+  - cert-manager-webhook
+  - cert-manager-webhook.$(WEBHOOK_NAMESPACE)
+  - cert-manager-webhook.$(WEBHOOK_NAMESPACE).svc
+...
