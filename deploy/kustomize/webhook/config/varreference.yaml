@@ -20,7 +20,7 @@ varReference:
 
 - path: spec/template/spec/initContainers/args
   kind: StatefulSet
- 
+
 - path: spec/template/spec/containers/args
   kind: StatefulSet
 
@@ -62,3 +62,14 @@ varReference:
 
 - path: spec/containers/env/value
   kind: Pod
+
+- path: webhooks/namespaceSelector/matchExpressions/values
+  apiVersion: admissionregistration.k8s.io/v1beta1
+  kind: ValidatingWebhookConfiguration
+
+- path: spec/dnsNames
+  apiVersion: certmanager.k8s.io/v1alpha1
+  kind: Certificate
+
+- path: data/config
+  kind: ConfigMap

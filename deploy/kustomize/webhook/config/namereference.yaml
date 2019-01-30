@@ -207,6 +207,10 @@ nameReference:
     kind: StorageClass
   - path: parameters/secretRef
     kind: StorageClass
+  - path: spec/secretName
+    kind: Certificate
+  - path: spec/ca/secretName
+    kind: Issuer
 
 - kind: Service
   version: v1
@@ -218,6 +222,9 @@ nameReference:
     kind: Ingress
   - path: spec/backend/serviceName
     kind: Ingress
+  - path: spec/service/name
+    kind: APIService
+    group: apiregistration.k8s.io
 
 - kind: Role
   group: rbac.authorization.k8s.io
@@ -283,3 +290,9 @@ nameReference:
   fieldSpecs:
   - path: spec/volumeName
     kind: PersistentVolumeClaim
+
+- kind: Issuer
+  group: certmanager.k8s.io
+  fieldSpecs:
+  - path: spec/issuerRef/name
+    kind: Certificate
